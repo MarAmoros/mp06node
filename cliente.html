@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+    <script>
+        function getAlum(){
+            $.ajax( "/alumnos" )
+            .done(function(data) {
+                alert( data);
+            })
+        }
+
+        function getProfes(){
+            $.ajax( "/profesores" )
+            .done(function(data) {
+                alert( data);
+                var list_html = "<ol>";
+                    JSON.parse(data).forEach(profo => {
+                    list_html += "<li>" + profo + "</li>";
+                });
+                list_html += "</ol>"
+                $("#profes").html(list_html);
+            
+             })
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="getProfes()" >Profesores</button>
+    <div id="profes">
+    </div>
+    <button onclick="getAlum()" >Alumnos</button>
+    
+</body>
+</html>
