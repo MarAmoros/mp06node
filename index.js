@@ -10,32 +10,59 @@ app.get('/', (req, res) => {
 
 
 app.get('/profesores', (req, res) => {
-    let profesores = ["Profe1", "Profe2"];
-    res.json(JSON.stringify(profesores));
+   // Connection URI
+   const uri =
+   "mongodb://localhost:27017/?maxPoolSize=20&w=majority";
+ // Create a new MongoClient
+ const client = new MongoClient(uri);
+
+
+     async function run() {
+         try {
+           await client.connect();
+             const database = client.db("school");
+             const profesores = database.collection("profesores");
+
+             const cursor = await profesores.find()
+             let profAr = await cursor.toArray() //guardas el find en una variable
+             res.json(JSON.stringify(profAr)); // lo envias a /alumnos
+
+         } finally {
+           await client.close();
+         }
+       }
+       run().catch(console.dir);
+    //let profesores = ["Profe1", "Profe2"];
+    //res.json(JSON.stringify(profesores));
 });
+
 app.get('/alumnos', (req, res) => {
-// Connection URI
-const uri =
-  "mongodb://localhost:27017/?maxPoolSize=20&w=majority";
-// Create a new MongoClient
-const client = new MongoClient(uri);
+    // Connection URI
+    const uri =
+      "mongodb://localhost:27017/?maxPoolSize=20&w=majority";
+    // Create a new MongoClient
+    const client = new MongoClient(uri);
 
 
-    async function run() {
-        try {
-            const database = client.db("school");
-            const alumnos = database.collection("alumnos");
+        async function run() {
+            try {
+              await client.connect();
+                const database = client.db("school");
+                const alumnos = database.collection("alumnos");
 
-            const findResult = await alumnos.find({
-                name: "Mar",
-              });
-            await cursor.forEach(console.dir);
+                const findResult = await alumnos.find({
+                    name: "Mar",
+                  });
+                  const cursor = await alumnos.find()
+                let alumAr = await cursor.toArray() //guardas el find en una variable
+                res.json(JSON.stringify(alumAr)); // lo envias a /alumnos
 
-        } finally {
-          await client.close();
-        }
-      }
-      run().catch(console.dir);
+            } finally {
+              await client.close();
+            }
+          }
+          run().catch(console.dir);
+
 });
 // Crear un servidor web con express el el puerto asignado en la varible port.
 app.listen(port, () => {

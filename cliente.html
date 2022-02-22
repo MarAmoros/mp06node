@@ -12,10 +12,10 @@
             .done(function(data) {
                 var list_html = "<ol>";
                     JSON.parse(data).forEach(alum => {
-                    list_html += "<li>" + alum + "</li>";
+                    list_html += "<li>" + alum.name + "</li>";
                 });
                 list_html += "</ol>"
-                $("#lista").html(list_html);
+                $("#lista").html(list_html);    
             
              })
             
@@ -26,7 +26,7 @@
             .done(function(data) {
                 var list_html = "<ol>";
                     JSON.parse(data).forEach(profo => {
-                    list_html += "<li>" + profo + "</li>";
+                    list_html += "<li>" + profo.name + "</li>";
                 });
                 list_html += "</ol>"
                 $("#lista").html(list_html);
