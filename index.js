@@ -3,7 +3,6 @@ const app = express(); // Asignar express a la variable app
 const port = 8000; // Puerto para express
 const { MongoClient } = require("mongodb");
 
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname+"/cliente.html")
 });
