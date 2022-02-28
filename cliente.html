@@ -8,7 +8,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
     <script>
         function getAlum(){
-            $.ajax( "http://localhost:8000/alumnos" )
+            $.ajax( "/alumnos" )
             .done(function(data) {
                 var list_html = "<ol>";
                     JSON.parse(data).forEach(alum => {
@@ -22,7 +22,7 @@
         }
 
         function getProfes(){
-            $.ajax( "http://localhost:8000/profesores" )
+            $.ajax( "/profesores" )
             .done(function(data) {
                 var list_html = "<ol>";
                     JSON.parse(data).forEach(profo => {
