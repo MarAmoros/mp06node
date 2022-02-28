@@ -35,7 +35,7 @@ express()
        
     }
     run().catch(console.dir);   
-    await client.close();
+    client.close();
 })
 
 //alumnos
@@ -61,7 +61,7 @@ express()
             }
           }
           run().catch(console.dir);
-          await client.close();
+          client.close();
 
 })
 //listen
