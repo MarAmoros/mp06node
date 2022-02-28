@@ -1,23 +1,22 @@
 const express = require('express'); // Importar express
-const app = express(); // Asignar express a la variable app
-const port = 8000; // Puerto para express
+const PORT = process.env.PORT || 5000
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
 const uri = "mongodb+srv://Mar02:holaBuenas@testcluster.abqp2.mongodb.net/school?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
 
+  // pagina inicial
+  .get('/', (req, res) => {
+      res.sendFile(__dirname+"/cliente.html")
+  })
 
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname+"/cliente.html")
-});
-
-app.get('/profesores', (req, res) => {
-
- 
-   
+//profesores
+  .get('/profesores', (req, res) => {
   async function run() {
       try {
         await client.connect()
@@ -34,14 +33,11 @@ app.get('/profesores', (req, res) => {
       
        
     }
-    run().catch(console.dir);
- //let profesores = ["Profe1", "Profe2"];
- //res.json(JSON.stringify(profesores));
-        
-});
+    run().catch(console.dir);   
+})
 
-
-app.get('/alumnos', (req, res) => {
+//alumnos
+.get('/alumnos', (req, res) => {
     // Connection URI
 
     // Create a new MongoClient
@@ -64,8 +60,7 @@ app.get('/alumnos', (req, res) => {
           }
           run().catch(console.dir);
 
-});
-// Crear un servidor web con express el el puerto asignado en la varible port.
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-});
+})
+//listen
+.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
