@@ -1,4 +1,5 @@
 const express = require('express'); // Importar express
+const path = require('path')
 const PORT = process.env.PORT || 5000
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://Mar02:holaBuenas@testcluster.abqp2.mongodb.net/school?retryWrites=true&w=majority";
