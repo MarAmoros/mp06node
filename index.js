@@ -29,12 +29,13 @@ express()
           res.json(JSON.stringify(profAr)); // lo envias a /alumnos
 
       } finally {
-        await client.close();
+        //await client.close();
       }
       
        
     }
     run().catch(console.dir);   
+    await client.close();
 })
 
 //alumnos
@@ -56,10 +57,11 @@ express()
                 res.json(JSON.stringify(alumAr)); // lo envias a /alumnos
                 
             } finally {
-              await client.close();
+              //await client.close();
             }
           }
           run().catch(console.dir);
+          await client.close();
 
 })
 //listen
